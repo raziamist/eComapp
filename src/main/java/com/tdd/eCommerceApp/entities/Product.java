@@ -21,18 +21,21 @@ public class Product {
     private String name;
 
 
-    private double price;
+    private Integer price;
 
     private Integer quantity;
 
     @Column(name = "CREATED_ON")
     private Date createdOn;
 
+    @Column(name = "UPDATED_ON")
+    private Date updatedOn;
 
 
     public Product() {
 
     }
+
 
     public Long getId() {
         return id;
@@ -54,7 +57,7 @@ public class Product {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -72,6 +75,14 @@ public class Product {
 
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public Date getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }
 
