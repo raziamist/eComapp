@@ -9,13 +9,15 @@ public class CustomerWishListRequest {
 
     private Long id;
 
+    private Long customerId;
+
     @NotBlank
     @Size(min = 3, max = 60)
     private String username;
 
     private String createdBy;
 
-    private List<ProductRequest> products;
+    private List<Long> productIds;
 
 
     public Long getId() {
@@ -24,6 +26,14 @@ public class CustomerWishListRequest {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public String getUsername() {
@@ -42,11 +52,11 @@ public class CustomerWishListRequest {
         this.createdBy = createdBy;
     }
 
-    public List<ProductRequest> getProducts() {
-        return products;
+    public List<Long> getProductIds() {
+        return productIds;
     }
 
-    public void setProducts(List<ProductRequest> products) {
-        this.products = products;
+    public void setProductIds(List<Long> productIds) {
+        this.productIds = productIds;
     }
 }

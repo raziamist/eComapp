@@ -1,9 +1,16 @@
 package com.tdd.eCommerceApp.services.impl;
 
 import com.tdd.eCommerceApp.entities.Customer;
+import com.tdd.eCommerceApp.entities.CustomerWishList;
+import com.tdd.eCommerceApp.entities.Product;
+import com.tdd.eCommerceApp.payload.request.CustomerWishListRequest;
+import com.tdd.eCommerceApp.payload.request.ProductRequest;
 import com.tdd.eCommerceApp.payload.request.SignUpRequest;
 import com.tdd.eCommerceApp.payload.response.ApiResponse;
+import com.tdd.eCommerceApp.payload.response.CustomerWishListResponse;
 import com.tdd.eCommerceApp.repository.CustomerRepository;
+import com.tdd.eCommerceApp.repository.CustomerWishListRepository;
+import com.tdd.eCommerceApp.repository.ProductRepository;
 import com.tdd.eCommerceApp.services.CustomerService;
 import com.tdd.eCommerceApp.utils.CommonUtils;
 import org.slf4j.Logger;
@@ -12,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -26,6 +30,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    CustomerWishListRepository customerWishListRepository;
+
+
+    @Autowired
+    ProductRepository productRepository;
 
 
     @Override
@@ -66,5 +77,68 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> findAll() {
         return customerRepository.findAll();
+    }
+
+    @Override
+    public String createWishlist(CustomerWishListRequest request) {
+
+        ApiResponse response = new ApiResponse();
+        CustomerWishList customerWishList;
+        try {
+            // For edit customerWishList
+
+            if (request.getId() != null && request.getId() > 0) {
+                customerWishList = customerWishListRepository.findById(request.getId()).get();
+
+
+                if (customerWishList != null && customerWishList.getId() > 0) {
+                    customerWishList.setUpdatedOn(new Date());
+
+                } else {
+                    return CommonUtils.objectToJsonString(response.getErrorResponse("Bad request!"));
+                }
+            }
+
+            else {
+                customerWishList = new CustomerWishList();
+            }
+
+            for(Long productId :request.getProductIds())
+            {
+                Product product =   productRepository.findById(productId).get();
+
+                customerWishList.setUsername(request.getUsername());
+                customerWishList.setCreatedOn(new Date());
+                customerWishList.setCustomerId(request.getCustomerId());
+                customerWishList.setProduct(product);
+
+            }
+
+            customerWishListRepository.save(customerWishList);
+
+            return CommonUtils.objectToJsonString(response.getSuccessResponse(customerWishList));
+        } catch (Exception exception) {
+            return CommonUtils.objectToJsonString(response.getErrorResponse("Bad request!"));
+        } finally {
+            response = null;
+            customerWishList = null;
+        }
+    }
+
+
+    @Override
+    public String getWishListByCustomerId(Object request) {
+        ApiResponse response = new ApiResponse();
+        CustomerWishListResponse customerWishListResponse;
+        String customerId = ((LinkedHashMap) request).get("customerId").toString();
+        if (customerId != null) {
+            Long id = Long.parseLong("0" + customerId);
+            customerWishListResponse = customerWishListRepository.getWishListList(id);
+            return CommonUtils.objectToJsonString(customerWishListResponse);
+        }
+        else
+        {
+            return CommonUtils.objectToJsonString(response.getErrorResponse("No wishlist available for this customer !"));
+        }
     }
 }

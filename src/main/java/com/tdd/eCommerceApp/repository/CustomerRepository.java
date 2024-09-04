@@ -10,9 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    @Query("select new com.tdd.eCommerceApp.payload.response.CustomerWishListResponse(c) " +
-            "from Customer c where c.id = :customerId")
-    CustomerWishListResponse getWishListList( @Param("customerId") Long customerId);
+
 
     Boolean existsByMobileOrEmail(String mobile, String email);
 

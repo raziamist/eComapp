@@ -15,6 +15,9 @@ public class CustomerWishList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "CUSTOMER_ID")
+    private Long customerId;
+
     @NotBlank
     @Size(max = 60)
     @Column(unique = true)
@@ -22,6 +25,9 @@ public class CustomerWishList {
 
     @Column(name = "CREATED_ON")
     private Date createdOn;
+
+    @Column(name = "UPDATED_ON")
+    private Date updatedOn;
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
@@ -37,6 +43,14 @@ public class CustomerWishList {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public String getUsername() {
@@ -61,6 +75,14 @@ public class CustomerWishList {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Date getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }
 

@@ -24,11 +24,6 @@ public class Customer {
     @Column(unique = true)
     private String username;
 
-    @NotBlank
-    @Size(max = 60)
-    @Email
-    @Column(unique = true)
-    private String email;
 
     @NotBlank
     @Size(max = 11)
@@ -43,26 +38,11 @@ public class Customer {
     @Size(max = 60)
     private String fullName;
 
-
-    @Column(name = "CREATED_BY")
-    private String createdBy;
-
     @Column(name = "CREATED_ON")
     private Date createdOn;
 
-    @Column(name = "UPDATED_BY")
-    private String updatedBy;
-
     @Column(name = "UPDATED_ON")
     private Date updatedOn;
-
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "CUSTOMER_WISHLIST",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    @JsonIgnore
-    private Set<Product> customerWishlist = new HashSet<>();
 
     public Customer() {
     }
@@ -84,13 +64,6 @@ public class Customer {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getMobile() {
         return mobile;
@@ -116,28 +89,12 @@ public class Customer {
         this.fullName = fullName;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public Date getCreatedOn() {
         return createdOn;
     }
 
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public Date getUpdatedOn() {
@@ -148,12 +105,5 @@ public class Customer {
         this.updatedOn = updatedOn;
     }
 
-    public Set<Product> getCustomerWishlist() {
-        return customerWishlist;
-    }
-
-    public void setCustomerWishlist(Set<Product> customerWishlist) {
-        this.customerWishlist = customerWishlist;
-    }
 }
 

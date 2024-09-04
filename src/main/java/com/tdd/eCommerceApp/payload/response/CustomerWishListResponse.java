@@ -1,6 +1,7 @@
 package com.tdd.eCommerceApp.payload.response;
 
 import com.tdd.eCommerceApp.entities.Customer;
+import com.tdd.eCommerceApp.entities.CustomerWishList;
 import com.tdd.eCommerceApp.entities.Product;
 
 import java.util.ArrayList;
@@ -9,16 +10,14 @@ import java.util.List;
 public class CustomerWishListResponse {
 
     private Long customerId;
-    private String customerName;
+    private String userName;
     private List<String> wishList = new ArrayList<>();
 
-    public CustomerWishListResponse(Customer c) {
+    public CustomerWishListResponse(CustomerWishList c) {
         this.customerId = c.getId();
-        this.customerName = c.getFullName();
-        for(Product product :c.getCustomerWishlist())
-        {
-            wishList.add(product.getName());
-        }
+        this.userName = c.getUsername();
+        wishList.add(c.getProduct().getName());
+
     }
 
     public Long getCustomerId() {
@@ -29,12 +28,12 @@ public class CustomerWishListResponse {
         this.customerId = customerId;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public List<String> getWishList() {

@@ -1,6 +1,7 @@
 package com.tdd.eCommerceApp.controllers;
 
 import com.tdd.eCommerceApp.entities.CustomerWishList;
+import com.tdd.eCommerceApp.payload.request.CustomerWishListRequest;
 import com.tdd.eCommerceApp.payload.request.SignUpRequest;
 import com.tdd.eCommerceApp.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,14 @@ public class CustomerController {
 
 
     @PostMapping("/createOrUpdateWishList")
-    public ResponseEntity<?> createOrUpdateCustomerWishList(@RequestBody CustomerWishList requestObject) {
+    public ResponseEntity<?> createOrUpdateCustomerWishList(@RequestBody CustomerWishListRequest requestObject) {
 
-        return ResponseEntity.ok(customerService.createOrUpdateWishlist(requestObject));
+        return ResponseEntity.ok(customerService.createWishlist(requestObject));
+    }
+
+    @PostMapping("/getWishListByCustomerId")
+    public ResponseEntity<?> getWishListByCustomerId(@RequestBody Object requestObject) {
+
+        return ResponseEntity.ok(customerService.getWishListByCustomerId(requestObject));
     }
 }

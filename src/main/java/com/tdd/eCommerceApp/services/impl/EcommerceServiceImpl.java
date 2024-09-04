@@ -22,10 +22,7 @@ public class EcommerceServiceImpl implements EcommerceService {
     ProductRepository productRepository;
 
 
-    @Override
-    public CustomerWishListResponse getWishlistByCustomerId(Long customerId) {
-        return customerRepository.getWishListList(customerId);
-    }
+
 
     @Override
     public List<Product> findAll() {
