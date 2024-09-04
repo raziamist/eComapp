@@ -14,12 +14,19 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long customer_id;
+    @Column(name = "CUSTOMER_ID")
+    private Long customerId;
 
-    private Long product_id;
+    @Column(name = "PRODUCT_ID")
+    private Long productId;
 
     private Integer quantity;
 
+    @Column(name = "UNIT_PRICE")
+    private Double unitPrice;
+
+    @Column(name = "TOTAL_PRICE")
+    private Double totalPrice;
 
     @Column(name = "CREATED_ON")
     private Date createdOn;
@@ -38,20 +45,20 @@ public class Sale {
         this.id = id;
     }
 
-    public Long getCustomer_id() {
-        return customer_id;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(Long customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
-    public Long getProduct_id() {
-        return product_id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(Long product_id) {
-        this.product_id = product_id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Integer getQuantity() {
@@ -68,6 +75,22 @@ public class Sale {
 
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public Double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
 

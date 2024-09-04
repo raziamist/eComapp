@@ -21,7 +21,7 @@ public class Product {
     private String name;
 
 
-    private Integer price;
+    private Double price;
 
     private Integer quantity;
 
@@ -57,7 +57,7 @@ public class Product {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
