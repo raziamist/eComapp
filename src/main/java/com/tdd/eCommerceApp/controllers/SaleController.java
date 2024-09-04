@@ -1,5 +1,6 @@
 package com.tdd.eCommerceApp.controllers;
 
+import com.tdd.eCommerceApp.payload.request.MaxSaleDayRequest;
 import com.tdd.eCommerceApp.payload.request.SaleRequest;
 import com.tdd.eCommerceApp.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,15 @@ public class SaleController {
     public ResponseEntity<?> productSale(@RequestBody SaleRequest requestObject) {
         return ResponseEntity.ok(saleService.saleProduct(requestObject));
     }
+
     @PostMapping("/getTotalSaleAmountByCurrentDate")
     public ResponseEntity<?> getTotalSale(@RequestBody Object requestObject) {
         return ResponseEntity.ok(saleService.totalSaleAmountOfCurrentDate(requestObject));
+    }
+
+    @PostMapping("/getMaxSaleDay")
+    public ResponseEntity<?> getMaxSaleDay(@RequestBody MaxSaleDayRequest requestObject) {
+        return ResponseEntity.ok(saleService.getMaxSaleDay(requestObject));
     }
 
 }

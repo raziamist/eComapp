@@ -17,5 +17,8 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
     Double getTotalSaleAmount(@Param("currentDate") String currentDate);
 
 
+    //String getMaxSaleDayByTimeRange(@Param("fromDate") String fromDate,@Param("toDate") String toDate);
+
+
 
 }

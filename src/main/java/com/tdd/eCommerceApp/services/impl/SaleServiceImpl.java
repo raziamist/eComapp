@@ -2,6 +2,7 @@ package com.tdd.eCommerceApp.services.impl;
 
 import com.tdd.eCommerceApp.entities.Product;
 import com.tdd.eCommerceApp.entities.Sale;
+import com.tdd.eCommerceApp.payload.request.MaxSaleDayRequest;
 import com.tdd.eCommerceApp.payload.request.SaleInfoRequest;
 import com.tdd.eCommerceApp.payload.request.SaleRequest;
 import com.tdd.eCommerceApp.payload.response.ApiResponse;
@@ -85,6 +86,15 @@ public class SaleServiceImpl implements SaleService {
             response = null;
             totalSaleAmount = 0.0;
         }
+    }
+
+    @Override
+    public String getMaxSaleDay(MaxSaleDayRequest request) {
+       /* String fromDate = request.getFromDate();
+        String toDate = request.getFromDate();
+
+        String maxSaleDay = saleRepository.getMaxSaleDayByTimeRange(fromDate,toDate);*/
+        return null;
     }
 
 }
