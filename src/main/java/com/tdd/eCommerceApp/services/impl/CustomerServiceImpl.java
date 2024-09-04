@@ -66,8 +66,9 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setUsername(signUpRequest.getUsername());
             customer.setMobile(signUpRequest.getMobile());
             customer.setCreatedOn(new Date());
+            customerRepository.save(customer);
 
-            return CommonUtils.objectToJsonString(response.getErrorResponse("Bad Request"));
+            return CommonUtils.objectToJsonString(response.getSuccessResponse(customer));
         } catch (Exception exception) {
             logger.info(exception.getMessage());
              return CommonUtils.objectToJsonString(response.getErrorResponse("Bad request!"));
@@ -83,7 +84,7 @@ public class CustomerServiceImpl implements CustomerService {
     public String createWishlist(CustomerWishListRequest request) {
 
         ApiResponse response = new ApiResponse();
-        CustomerWishList customerWishList;
+        CustomerWishList customerWishList = null;
         try {
             // For edit customerWishList
 
@@ -98,23 +99,21 @@ public class CustomerServiceImpl implements CustomerService {
                     return CommonUtils.objectToJsonString(response.getErrorResponse("Bad request!"));
                 }
             }
-
             else {
-                customerWishList = new CustomerWishList();
+
+                for (Long productId : request.getProductIds()) {
+                    Product product = productRepository.findById(productId).get();
+                    customerWishList = new CustomerWishList();
+                    customerWishList.setUsername(request.getUsername());
+                    customerWishList.setCreatedOn(new Date());
+                    customerWishList.setCustomerId(request.getCustomerId());
+                    customerWishList.setProduct(product);
+                    customerWishListRepository.save(customerWishList);
+
+                }
             }
 
-            for(Long productId :request.getProductIds())
-            {
-                Product product =   productRepository.findById(productId).get();
 
-                customerWishList.setUsername(request.getUsername());
-                customerWishList.setCreatedOn(new Date());
-                customerWishList.setCustomerId(request.getCustomerId());
-                customerWishList.setProduct(product);
-
-            }
-
-            customerWishListRepository.save(customerWishList);
 
             return CommonUtils.objectToJsonString(response.getSuccessResponse(customerWishList));
         } catch (Exception exception) {
@@ -129,11 +128,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String getWishListByCustomerId(Object request) {
         ApiResponse response = new ApiResponse();
-        CustomerWishListResponse customerWishListResponse;
+        CustomerWishListResponse customerWishListResponse = null;
         String customerId = ((LinkedHashMap) request).get("customerId").toString();
         if (customerId != null) {
             Long id = Long.parseLong("0" + customerId);
-            customerWishListResponse = customerWishListRepository.getWishListList(id);
+            List<String> products = customerWishListRepository.getProductsByCustomerId(id);
+            customerWishListResponse = customerWishListRepository.getWishListList(id,products.toString());
             return CommonUtils.objectToJsonString(customerWishListResponse);
         }
         else

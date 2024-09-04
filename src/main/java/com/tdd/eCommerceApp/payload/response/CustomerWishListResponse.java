@@ -3,6 +3,9 @@ package com.tdd.eCommerceApp.payload.response;
 import com.tdd.eCommerceApp.entities.Customer;
 import com.tdd.eCommerceApp.entities.CustomerWishList;
 import com.tdd.eCommerceApp.entities.Product;
+import com.tdd.eCommerceApp.services.ApplicationContextProvider;
+import com.tdd.eCommerceApp.services.CustomerService;
+import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +15,13 @@ public class CustomerWishListResponse {
     private Long customerId;
     private String userName;
     private List<String> wishList = new ArrayList<>();
+    private String productsName;
 
-    public CustomerWishListResponse(CustomerWishList c) {
+    public CustomerWishListResponse(CustomerWishList c,String products) {
+
         this.customerId = c.getId();
         this.userName = c.getUsername();
-        wishList.add(c.getProduct().getName());
+        this.productsName = products;
 
     }
 
@@ -36,11 +41,11 @@ public class CustomerWishListResponse {
         this.userName = userName;
     }
 
-    public List<String> getWishList() {
-        return wishList;
+    public String getProductsName() {
+        return productsName;
     }
 
-    public void setWishList(List<String> wishList) {
-        this.wishList = wishList;
+    public void setProductsName(String productsName) {
+        this.productsName = productsName;
     }
 }

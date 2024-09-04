@@ -1,7 +1,6 @@
 package com.tdd.eCommerceApp.controllers;
 
 import com.tdd.eCommerceApp.payload.request.ProductRequest;
-import com.tdd.eCommerceApp.services.EcommerceService;
 import com.tdd.eCommerceApp.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping("/addOrEditProduct")
-    public ResponseEntity<?> createMemo(@RequestBody ProductRequest requestObject) {
+    public ResponseEntity<?> createOrEditProduct(@RequestBody ProductRequest requestObject) {
         return ResponseEntity.ok(productService.addOrEditProduct(requestObject));
     }
 

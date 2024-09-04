@@ -15,8 +15,6 @@ public class CustomerWishListRequest {
     @Size(min = 3, max = 60)
     private String username;
 
-    private String createdBy;
-
     private List<Long> productIds;
 
 
@@ -42,14 +40,6 @@ public class CustomerWishListRequest {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
     }
 
     public List<Long> getProductIds() {

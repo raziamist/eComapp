@@ -1,10 +1,7 @@
 package com.tdd.eCommerceApp.payload.request;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-
-import java.util.Set;
 
 public class SignUpRequest {
 
@@ -19,9 +16,9 @@ public class SignUpRequest {
     private String mobile;
 
 
-    @NotBlank
+   /* @NotBlank
     @Size(min = 6, max = 120)
-    private String password;
+    private String password;*/
 
     @NotBlank
     @Size(max = 60)
@@ -55,13 +52,13 @@ public class SignUpRequest {
         this.mobile = mobile;
     }
 
-    public String getPassword() {
+ /*   public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
+    }*/
 
     public String getFullName() {
         return fullName;

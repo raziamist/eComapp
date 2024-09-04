@@ -11,12 +11,9 @@ import org.springframework.stereotype.Repository;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 
-
-    Boolean existsByMobileOrEmail(String mobile, String email);
-
     Boolean existsByUsername(String username);
 
-    Boolean existsByEmail(String email);
+/*    Boolean existsByEmail(String email);*/
 
     Boolean existsByMobile(String mobile);
 

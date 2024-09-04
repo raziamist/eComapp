@@ -20,7 +20,6 @@ public class CustomerWishList {
 
     @NotBlank
     @Size(max = 60)
-    @Column(unique = true)
     private String username;
 
     @Column(name = "CREATED_ON")

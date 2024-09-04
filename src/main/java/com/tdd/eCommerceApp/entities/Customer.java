@@ -30,9 +30,9 @@ public class Customer {
     @Column(unique = true)
     private String mobile;
 
-    @NotBlank
+/*    @NotBlank
     @Size(min = 8, max = 120)
-    private String password;
+    private String password;*/
 
     @NotBlank
     @Size(max = 60)
@@ -73,13 +73,13 @@ public class Customer {
         this.mobile = mobile;
     }
 
-    public String getPassword() {
+  /*  public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
+    }*/
 
     public String getFullName() {
         return fullName;
