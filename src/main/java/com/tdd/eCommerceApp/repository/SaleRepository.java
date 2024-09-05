@@ -1,7 +1,8 @@
 package com.tdd.eCommerceApp.repository;
 
 import com.tdd.eCommerceApp.entities.Sale;
-import com.tdd.eCommerceApp.payload.response.BestSellingProductsResponse;
+import com.tdd.eCommerceApp.payload.response.TopSellingProductsByNumOfItemsResponse;
+import com.tdd.eCommerceApp.payload.response.TopSellingProductsBySaleAmountResponse;
 import com.tdd.eCommerceApp.payload.response.MaxSaleDayResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,8 +32,18 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
             "group by product_id \n " +
             "order by totalSaleAmount  desc \n" +
             "limit 0,5",nativeQuery = true)
-    List<BestSellingProductsResponse> getBestSellingProducts();
+    List<TopSellingProductsBySaleAmountResponse> getBestSellingProductsBySaleAmount();
 
+    @Query(value = "    select p.name,s.product_id,sum(s.quantity)numberOfItems from Sale s\n" +
+            "    inner join product p on s.product_id =p.id\n" +
+            "    WHERE\n" +
+            "    date_format(s.created_on,'%Y-%m-%d')  >= DATE_FORMAT( CURRENT_DATE - INTERVAL 1 MONTH,'%Y-%m-%d')\n" +
+            "    AND\n" +
+            "    date_format(s.created_on,'%Y-%m-%d') < DATE_FORMAT( CURRENT_DATE, '%Y-%m-01' )\n" +
+            "    group by product_id\n" +
+            "    order by numberOfItems desc\n" +
+            "    limit 0,5",nativeQuery = true)
+    List<TopSellingProductsByNumOfItemsResponse> getBestSellingProductsByNoOfItems();
 
 
 }

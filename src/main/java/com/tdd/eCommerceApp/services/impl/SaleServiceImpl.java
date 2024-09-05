@@ -6,7 +6,8 @@ import com.tdd.eCommerceApp.payload.request.MaxSaleDayRequest;
 import com.tdd.eCommerceApp.payload.request.SaleInfoRequest;
 import com.tdd.eCommerceApp.payload.request.SaleRequest;
 import com.tdd.eCommerceApp.payload.response.ApiResponse;
-import com.tdd.eCommerceApp.payload.response.BestSellingProductsResponse;
+import com.tdd.eCommerceApp.payload.response.TopSellingProductsByNumOfItemsResponse;
+import com.tdd.eCommerceApp.payload.response.TopSellingProductsBySaleAmountResponse;
 import com.tdd.eCommerceApp.payload.response.MaxSaleDayResponse;
 import com.tdd.eCommerceApp.repository.ProductRepository;
 import com.tdd.eCommerceApp.repository.SaleRepository;
@@ -110,9 +111,26 @@ public class SaleServiceImpl implements SaleService {
         List<String> items = new ArrayList<>();
 
         // To get the total Sale Amount for top selling products
-        List<BestSellingProductsResponse> topSellingProducts= saleRepository.getBestSellingProducts();
+        List<TopSellingProductsBySaleAmountResponse> topSellingProducts= saleRepository.getBestSellingProductsBySaleAmount();
 
-        for(BestSellingProductsResponse bestSellingProductsResponse :topSellingProducts)
+        for(TopSellingProductsBySaleAmountResponse bestSellingProductsResponse :topSellingProducts)
+        {
+            // list of the top selling items
+            items.add(bestSellingProductsResponse.getproductName());
+        }
+        return CommonUtils.objectToJsonString(response.getSuccessResponse(items));
+    }
+
+    @Override
+    public String getTopSellingProductsByNoOfItems() {
+
+        ApiResponse response = new ApiResponse();
+        List<String> items = new ArrayList<>();
+
+        // To get the total number of Items pf top selling products
+        List<TopSellingProductsByNumOfItemsResponse> topSellingProducts= saleRepository.getBestSellingProductsByNoOfItems();
+
+        for(TopSellingProductsByNumOfItemsResponse bestSellingProductsResponse :topSellingProducts)
         {
             // list of the top selling items
             items.add(bestSellingProductsResponse.getproductName());

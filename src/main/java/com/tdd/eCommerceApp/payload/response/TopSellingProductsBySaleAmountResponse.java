@@ -1,7 +1,7 @@
 package com.tdd.eCommerceApp.payload.response;
 
 
-public interface BestSellingProductsResponse {
+public interface TopSellingProductsBySaleAmountResponse {
 
     String getproductName();
     Double gettotalSaleAmount();

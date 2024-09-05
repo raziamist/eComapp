@@ -14,4 +14,6 @@ public interface SaleService {
 
     String getTopSellingProducts();
 
+    String getTopSellingProductsByNoOfItems();
+
 }

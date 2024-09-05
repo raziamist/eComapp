@@ -37,4 +37,10 @@ public class SaleController {
         return ResponseEntity.ok(saleService.getTopSellingProducts());
     }
 
+    @PostMapping("/getTopSellingProductsByNoOfItemsSold")
+    public ResponseEntity<?> getTopSellingProductsByNoOfItems() {
+        return ResponseEntity.ok(saleService.getTopSellingProducts());
+    }
+
+
 }
