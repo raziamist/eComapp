@@ -1,7 +1,5 @@
 package com.tdd.eCommerceApp.payload.request;
 
-import java.util.List;
-
 public class MaxSaleDayRequest {
 
 

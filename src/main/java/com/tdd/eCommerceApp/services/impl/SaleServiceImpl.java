@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
@@ -49,6 +48,7 @@ public class SaleServiceImpl implements SaleService {
                 sale.setCustomerId(saleInfoRequest.getCustomerId());
                 sale.setProductId(saleInfoRequest.getProductId());
                 sale.setQuantity(saleInfoRequest.getQuantity());
+                saleRepository.updateQuantityOfProduct(saleInfoRequest.getProductId(),saleInfoRequest.getQuantity());
                 Product product = productRepository.findById(saleInfoRequest.getProductId()).get();
                 sale.setUnitPrice(product.getPrice());
                 double price =product.getPrice();
@@ -90,11 +90,11 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public String getMaxSaleDay(MaxSaleDayRequest request) {
-       /* String fromDate = request.getFromDate();
-        String toDate = request.getFromDate();
+        String fromDate = request.getFromDate();
+        String toDate = request.getToDate();
 
-        String maxSaleDay = saleRepository.getMaxSaleDayByTimeRange(fromDate,toDate);*/
-        return null;
+        String saleDay= saleRepository.getMaxSaleDayByTimeRange(fromDate,toDate);
+        return saleDay;
     }
 
 }
