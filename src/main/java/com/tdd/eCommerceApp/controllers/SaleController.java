@@ -5,10 +5,7 @@ import com.tdd.eCommerceApp.payload.request.SaleRequest;
 import com.tdd.eCommerceApp.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +30,11 @@ public class SaleController {
     @PostMapping("/getMaxSaleDay")
     public ResponseEntity<?> getMaxSaleDay(@RequestBody MaxSaleDayRequest requestObject) {
         return ResponseEntity.ok(saleService.getMaxSaleDay(requestObject));
+    }
+
+    @PostMapping("/getTopSellingProducts")
+    public ResponseEntity<?> getTopSellingProducts() {
+        return ResponseEntity.ok(saleService.getTopSellingProducts());
     }
 
 }

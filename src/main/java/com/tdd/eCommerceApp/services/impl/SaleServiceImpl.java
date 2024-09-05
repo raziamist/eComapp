@@ -6,6 +6,8 @@ import com.tdd.eCommerceApp.payload.request.MaxSaleDayRequest;
 import com.tdd.eCommerceApp.payload.request.SaleInfoRequest;
 import com.tdd.eCommerceApp.payload.request.SaleRequest;
 import com.tdd.eCommerceApp.payload.response.ApiResponse;
+import com.tdd.eCommerceApp.payload.response.BestSellingProductsResponse;
+import com.tdd.eCommerceApp.payload.response.MaxSaleDayResponse;
 import com.tdd.eCommerceApp.repository.ProductRepository;
 import com.tdd.eCommerceApp.repository.SaleRepository;
 import com.tdd.eCommerceApp.services.SaleService;
@@ -16,8 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 @Service
 @Transactional
@@ -93,8 +97,29 @@ public class SaleServiceImpl implements SaleService {
         String fromDate = request.getFromDate();
         String toDate = request.getToDate();
 
-        String saleDay= saleRepository.getMaxSaleDayByTimeRange(fromDate,toDate);
-        return saleDay;
+        // To get the Sale Amount of Max Sale Day
+
+        MaxSaleDayResponse saleDay= saleRepository.getMaxSaleDayByTimeRange(fromDate,toDate);
+        return saleDay.getsaleDay();
     }
+
+    @Override
+    public String getTopSellingProducts() {
+
+        ApiResponse response = new ApiResponse();
+        List<String> items = new ArrayList<>();
+
+        // To get the total Sale Amount for top selling products
+        List<BestSellingProductsResponse> topSellingProducts= saleRepository.getBestSellingProducts();
+
+        for(BestSellingProductsResponse bestSellingProductsResponse :topSellingProducts)
+        {
+            // list of the top selling items
+            items.add(bestSellingProductsResponse.getproductName());
+        }
+        return CommonUtils.objectToJsonString(response.getSuccessResponse(items));
+    }
+
+
 
 }

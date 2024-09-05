@@ -12,4 +12,6 @@ public interface SaleService {
 
     String getMaxSaleDay(MaxSaleDayRequest request);
 
+    String getTopSellingProducts();
+
 }
