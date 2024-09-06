@@ -21,14 +21,8 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.registerCustomer(requestObject));
     }
 
-    @PostMapping("/customerList")
-    public ResponseEntity<?> getCustomerList() {
 
-        return ResponseEntity.ok(customerService.findAll());
-    }
-
-
-    @PostMapping("/createOrUpdateWishList")
+    @PostMapping("/createWishList")
     public ResponseEntity<?> createOrUpdateCustomerWishList(@RequestBody CustomerWishListRequest requestObject) {
 
         return ResponseEntity.ok(customerService.createWishlist(requestObject));
