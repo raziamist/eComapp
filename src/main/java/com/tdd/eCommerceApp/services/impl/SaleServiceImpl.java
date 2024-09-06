@@ -53,12 +53,12 @@ public class SaleServiceImpl implements SaleService {
                 sale.setCustomerId(saleInfoRequest.getCustomerId());
                 sale.setProductId(saleInfoRequest.getProductId());
                 sale.setQuantity(saleInfoRequest.getQuantity());
-                saleRepository.updateQuantityOfProduct(saleInfoRequest.getProductId(),saleInfoRequest.getQuantity());
                 Product product = productRepository.findById(saleInfoRequest.getProductId()).get();
                 sale.setUnitPrice(product.getPrice());
                 double price =product.getPrice();
                 sale.setTotalPrice(price*saleInfoRequest.getQuantity());
                 saleRepository.save(sale);
+                productRepository.updateQuantityOfProduct(saleInfoRequest.getProductId(),saleInfoRequest.getQuantity());
             }
 
 

@@ -24,8 +24,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
            "limit 0,1 ",nativeQuery = true)
    MaxSaleDayResponse getMaxSaleDayByTimeRange(@Param("fromDate") String fromDate, @Param("toDate") String toDate);
 
-    @Query(value="UPDATE Prooduct AS p set p.quantity = p.quantity-:quantity where id = :productId",nativeQuery = true)
-    Long updateQuantityOfProduct(Long productId,Integer quantity);
+
 
     @Query(value = "select p.name AS productName,sum(s.total_price) totalSaleAmount from Sale s\n" +
             "inner join product p on s.product_id =p.id\n " +
@@ -34,14 +33,14 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
             "limit 0,5",nativeQuery = true)
     List<TopSellingProductsBySaleAmountResponse> getBestSellingProductsBySaleAmount();
 
-    @Query(value = "    select p.name,s.product_id,sum(s.quantity)numberOfItems from Sale s\n" +
+    @Query(value = "    select p.name productName ,sum(s.quantity)totalItems from Sale s\n" +
             "    inner join product p on s.product_id =p.id\n" +
             "    WHERE\n" +
             "    date_format(s.created_on,'%Y-%m-%d')  >= DATE_FORMAT( CURRENT_DATE - INTERVAL 1 MONTH,'%Y-%m-%d')\n" +
             "    AND\n" +
             "    date_format(s.created_on,'%Y-%m-%d') < DATE_FORMAT( CURRENT_DATE, '%Y-%m-01' )\n" +
             "    group by product_id\n" +
-            "    order by numberOfItems desc\n" +
+            "    order by totalItems desc\n" +
             "    limit 0,5",nativeQuery = true)
     List<TopSellingProductsByNumOfItemsResponse> getBestSellingProductsByNoOfItems();
 

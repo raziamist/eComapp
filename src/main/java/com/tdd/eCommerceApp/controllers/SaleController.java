@@ -32,14 +32,14 @@ public class SaleController {
         return ResponseEntity.ok(saleService.getMaxSaleDay(requestObject));
     }
 
-    @PostMapping("/getTopSellingProducts")
+    @PostMapping("/getTopSellingProductsBySaleAmount")
     public ResponseEntity<?> getTopSellingProducts() {
         return ResponseEntity.ok(saleService.getTopSellingProducts());
     }
 
     @PostMapping("/getTopSellingProductsByNoOfItemsSold")
     public ResponseEntity<?> getTopSellingProductsByNoOfItems() {
-        return ResponseEntity.ok(saleService.getTopSellingProducts());
+        return ResponseEntity.ok(saleService.getTopSellingProductsByNoOfItems());
     }
 
 
